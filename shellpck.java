@@ -33,7 +33,7 @@ public class shellpck{
 		if(judge1)
 		{
 			String string2=string1.substring(5);
-			string2=string2.replaceAll("\\\\n","\r\n");
+			string2=string2.replaceAll("\\\\n","\r\n");//替换/n
 			char ss1[] = string2.toCharArray();
 			if(ss1[0]=='"' && ss1[string2.length()-1]=='"')
 			{
@@ -53,7 +53,7 @@ public class shellpck{
 		    	String line=scanner.nextLine();
 		    	if(line.contains(str2))
 		    	{
-		    		line=line.replaceAll("(?!\\\\r)\\\\n","\r\n");
+		    		line=line.replaceAll("\\\\n","\r\n");//替换/n
 		    		System.out.println(line);
 		    	}
 		    }
@@ -90,14 +90,14 @@ public class shellpck{
 	{
 		File file = new File(Path+"\\"+str);// 
 		
-		if(file.mkdirs()) {
-			System.out.println("文件夹创建成功！");
+		if(!file.mkdirs()) {
+			System.out.println("文件夹创建失败！");
 		} 
 	}
 	public static void cp(String Path,String file1,String file2) throws IOException//复制文件
 	{
-		FileInputStream in = new FileInputStream(new File(Path+"\\"+file1));
-	    FileOutputStream out = new FileOutputStream(new File(Path+"\\"+file2));
+		FileInputStream in = new FileInputStream(new File(Path+"\\"+file2));
+	    FileOutputStream out = new FileOutputStream(new File(Path+"\\"+file1));
 	    byte[] buff = new byte[512];
 	    int n = 0;
 	    while ((n = in.read(buff)) != -1) {
@@ -106,7 +106,6 @@ public class shellpck{
 	    out.flush();
 	    in.close();
 	    out.close();
-	    System.out.println("复制完成");
 		
 	}
 	public static void rm(String NowPath,String file1)
@@ -174,7 +173,7 @@ public class shellpck{
 						 break;
 					 }
 				 }
-				 cp(NowPath,str.substring(t+1),str.substring(6,t-1));
+				 cp(NowPath,str.substring(t+1),str.substring(3,t));
 			 }
 			 else if("rm".equals(str.substring(0,2)))
 			 {
